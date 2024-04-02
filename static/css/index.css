@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=Rajdhani&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Rajdhani", sans-serif;
+  max-height: 100vh;
+  background: linear-gradient(to left, #094d60 0%, #033644 50%, #053c4c);
+}
+.nav {
+  margin: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+.nav span {
+  background-color: #fff;
+  color: #033644;
+  border-radius: 5px;
+}
+
+.nav h3 {
+  color: white;
+  font-size: 30px;
+}
+.sign {
+  margin-right: 2rem;
+  display: flex;
+  gap: 2rem;
+  font-size: 20px;
+  font-weight: bold;
+}
+.nav .sign a {
+  color: white;
+  text-decoration: none;
+  transition: 0.4s;
+}
+.sign a:hover {
+  color: rgb(0, 229, 255);
+  transform: translate(0, -5px);
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 60vh;
+}
+.content .heading {
+  color: white;
+  font-size: 40px;
+  margin-bottom: 1rem;
+  position: relative;
+}
+.content .heading:before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 35%;
+  width: 30%;
+  height: 5px;
+  background-color: #fff;
+  border-radius: 5px;
+}
+.content .description {
+  margin-top: 1rem;
+  color: rgb(2, 225, 255);
+  width: 80%;
+  text-align: justify;
+  font-size: 25px;
+}
+
+.btn {
+  margin-top: 2rem;
+}
+ .btn a {
+  display: block;
+  text-decoration: none;
+  background-color: #fff;
+  color: #033644;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  transition: 0.4s;
+}
+.btn a:hover {
+  transform: translate(0, -5px);
+}

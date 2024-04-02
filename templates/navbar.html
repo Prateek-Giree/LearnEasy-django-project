@@ -1,0 +1,74 @@
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .navbar li {
+    list-style: none;
+  }
+  .navbar a {
+    font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+    text-decoration: none;
+    color: #fff;
+    font-size: 20px;
+  }
+  .navbar {
+    background-color: #013c4d;
+    width: 100%;
+    height: 60px;
+    /* max-width: 1200px; */
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .navbar .logo {
+    padding-left: 10px;
+  }
+  .logo span {
+    background-color: #fff;
+    color: #013c4d;
+    border-radius: 5px;
+  }
+  .navbar .logo a {
+    font-size: 2rem;
+    font-weight: bold;
+    color:#fff;
+    padding-bottom: 10px;
+  }
+
+  .navbar .links {
+    margin-left: 10rem;
+    display: flex;
+    gap: 4rem;
+  }
+  .navbar .links a:hover {
+    color: cyan;
+    transition: 1s;
+  }
+</style>
+<header>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="#">Learn<span>Easy</span></a>
+    </div>
+    <ul class="links">
+      <li><a href="">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="../src/pages/admin_login.php">Admin</a></li>
+    </ul>
+    <form method="GET" action="{% url 'home' %}" class="d-flex" role="search ">
+      <input
+        class="form-control me-1"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+        name="q"
+      />
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+
+    <a href="{% url 'login' %}">login</a>
+  </nav>
+</header>

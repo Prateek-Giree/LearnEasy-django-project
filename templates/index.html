@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    <title>Welcome to LearnEasy</title>
+  </head>
+  <body>
+    <section>
+      <div class="main">
+        <div class="nav">
+          <h3>Learn<span>Easy</span></h3>
+          <div class="sign">
+            <a href=" {% url 'login' %} ">SignIn</a>
+            <a href="">SignUp</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="heading">
+          <h1>Welcome to LearnEasy</h1>
+        </div>
+        <div class="description">
+          <p>
+            LearnEasy is a platform designed to enhance your study experience by
+            providing a collaborative environment for learning. Whether you're a
+            student looking for a quiet space to focus, or a group aiming to
+            work together on projects, our platform offers the tools you need to
+            succeed.
+          </p>
+        </div>
+        <div class="btn">
+          <a href=" {% url 'login' %} ">Get Started</a>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

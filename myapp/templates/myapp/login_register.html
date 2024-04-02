@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <title>Welcome</title>
+  </head>
+  <body>
+    {% if messages %} {% for message in messages %}
+    <script>
+      alert("User do not exist");
+    </script>
+    <!-- <p id="errorMessage" > {{message}} </p> -->
+    {% endfor %} {% endif %}
+
+    <section class="hero">
+      <div class="loginForm">
+        <form action="" method="post">
+          {% csrf_token %}
+          <h2>Please login to continue</h2>
+          <div class="inputBox">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              required="required"
+            />
+            <span>Username</span>
+          </div>
+          <div class="inputBox">
+            <input
+              type="password"
+              name="password"
+              id="pass"
+              required="required"
+            />
+            <span>Password</span>
+          </div>
+          <div class="inputBox">
+            <input type="submit" name="" value="Login" />
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>
