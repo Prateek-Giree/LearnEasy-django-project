@@ -10,7 +10,7 @@
   <body>
     {% if messages %} {% for message in messages %}
     <script>
-      alert("User do not exist");
+      alert("{{message}}");
     </script>
     <!-- <p id="errorMessage" > {{message}} </p> -->
     {% endfor %} {% endif %}
@@ -40,6 +40,9 @@
           </div>
           <div class="inputBox">
             <input type="submit" name="" value="Login" />
+          </div>
+          <div class="reg">
+            <a href="">Dont have an account? Register</a>
           </div>
         </form>
       </div>
