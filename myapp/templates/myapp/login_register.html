@@ -16,6 +16,8 @@
     {% endfor %} {% endif %}
 
     <section class="hero">
+      <!-- login page -->
+      {% if page == 'login' %}
       <div class="loginForm">
         <form action="" method="post">
           {% csrf_token %}
@@ -42,10 +44,47 @@
             <input type="submit" name="" value="Login" />
           </div>
           <div class="reg">
-            <a href="">Dont have an account? Register</a>
+            <a href=" {% url 'register' %} ">Dont have an account? Register</a>
           </div>
         </form>
       </div>
+
+      <!-- signup page -->
+      {% else %}
+      <div class="loginForm">
+        <form action="" method="post">
+          {% csrf_token %}
+          <h2>Please enter details</h2>
+          <!-- rendering form on the basis of model -->
+          {{form.as_p}}
+          <!-- <div class="inputBox">
+            <input
+              type="text"
+              name="username"
+              id="username"
+              required="required"
+            />
+            <span>Username</span>
+          </div>
+          <div class="inputBox">
+            <input
+              type="password"
+              name="password"
+              id="pass"
+              required="required"
+            />
+            <span>Password</span>
+          </div> -->
+          <div class="inputBox">
+            <input type="submit" name="" value="Login" />
+          </div>
+          <div class="reg">
+            <a href=" {% url 'login' %} ">Already have an account? Login</a>
+          </div>
+        </form>
+      </div>
+
+      {% endif %}
     </section>
   </body>
 </html>

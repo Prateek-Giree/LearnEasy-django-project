@@ -33,7 +33,7 @@
   .navbar .logo a {
     font-size: 2rem;
     font-weight: bold;
-    color:#fff;
+    color: #fff;
     padding-bottom: 10px;
   }
 
@@ -50,19 +50,18 @@
 <header>
   <nav class="navbar">
     <div class="logo">
-      <a href="#">Learn<span>Easy</span></a>
+      <a href=" {% url 'home' %} ">Learn<span>Easy</span></a>
     </div>
     <ul class="links">
       <li><a href="">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
-      <li><a href="../src/pages/admin_login.php">Admin</a></li>
     </ul>
     <form method="GET" action="{% url 'home' %}" class="d-flex" role="search ">
       <input
         class="form-control me-1"
         type="search"
-        placeholder="Search"
+        placeholder="Search rooms.."
         aria-label="Search"
         name="q"
       />

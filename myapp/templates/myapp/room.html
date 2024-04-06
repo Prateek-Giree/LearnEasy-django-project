@@ -1,5 +1,45 @@
 {% extends 'main.html' %} {% block title %} Room {% endblock title %}
-
 {% block body %}
-<h1> {{room.name}} </h1>
-{% endblock%}
+
+<style>
+    .room-container {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 20px;
+    }
+</style>
+<div class="room-container">
+    <div>
+        <h1>{{room.name}}</h1>
+        <p>{{room.description}}</p>
+        <div class="comment-wrapper">
+            <h3>Join the discussion</h3>
+            <hr />
+            {% for message in room_messages %}
+            <div>
+                <small>@{{message.user}} {{message.created|timesince}} ago</small>
+                <p>{{message.body}}</p>
+                <hr />
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="comment-form">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <input type="text" name="body" placeholder="Write your message here..." />
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <h3>Participants</h3>
+        <hr />
+        {% for user in participants %}
+        <div>
+            <p>@{{user.username}}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

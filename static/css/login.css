@@ -87,3 +87,10 @@ body {
   background: #16a6c3;
   transition: 0.4s;
 }
+
+.reg a {
+  text-decoration: none;
+}
+.reg a:hover {
+  text-decoration: dotted underline;
+}
