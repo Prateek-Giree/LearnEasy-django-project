@@ -23,29 +23,31 @@
 
   <div>
     <h5>
-      {% if room_count == 0 %} 
-     <h5> No rooms available </h5>
-     {% else %} 
-     <h5>{{room_count}} rooms available</h5>
+      {% if room_count == 0 %}
+      <h5> No rooms available </h5>
+      {% else %}
+      <h5>{{room_count}} rooms available</h5>
       {% endif %}
-      
-    <a href="{% url 'create-room' %}">Create room</a>
-    <div>
-      {% for room in rooms %}
+
+      <a href="{% url 'create-room' %}">Create room</a>
       <div>
-        {% if request.user == room.host %}
+        {% for room in rooms %}
+        <div>
+          {% if request.user == room.host %}
           <a href="{% url 'update-room' room.id %}">Edit</a>||
           <a href="{% url 'delete-room' room.id %}">Delete</a> <br />
-        {% endif %}
-        <span>@{{room.host.username}} </span>
-        <h3>
-          {{room.id}} -- <a href="{% url 'room' room.id%}"> {{room.name}}</a>
-          <small> <p>{{room.topic.name}}</p> </small>
-        </h3>
-        <hr />
-        {% endfor %}
+          {% endif %}
+          <span>@{{room.host.username}} </span>
+          <h3>
+            {{room.id}} -- <a href="{% url 'room' room.id%}"> {{room.name}}</a>
+            <small>
+              <p>{{room.topic.name}}</p>
+            </small>
+          </h3>
+          <hr />
+          {% endfor %}
+        </div>
       </div>
-    </div>
   </div>
 </div>
 {% endblock %}

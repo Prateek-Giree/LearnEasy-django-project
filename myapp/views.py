@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -92,7 +92,6 @@ def room(request, pk):
     room_messages = room.message_set.all()
 
     participants = room.participants.all()  # get all participants of room
-
     # messaging feature
     if request.method == "POST":
         message = Message.objects.create(
@@ -100,8 +99,10 @@ def room(request, pk):
             room=room,
             body=request.POST.get(
                 "body"
-            ),  # get message from form 'body' is the name attribute of tag
+            ),  # get message from form. 'body' is the name attribute of tag
         )
+        # add user to participants
+        room.participants.add(request.user)
         # Reloding page after message is sent to show message
         return redirect("room", pk=room.id)
 
@@ -155,3 +156,25 @@ def deleteRoom(request, pk):
         room.delete()
         return redirect("home")
     return render(request, "myapp/delete.html", {"obj": room})
+
+
+# def deleteMessage(request, pk):
+#     message = Message.objects.get(id=pk)
+
+#     if request.method == "POST":
+#         message.delete()
+#         return redirect("home")
+
+
+#     return render(request, "myapp/delete.html", {"obj": message})
+
+
+@login_required(login_url="login")
+def deleteMessage(request, room_id, pk):
+    message = Message.objects.get(id=pk)
+
+    if request.method == "POST":
+        message.delete()
+        return redirect("room", pk=room_id)  # pk is parameter in room url
+
+    return render(request, "myapp/delete.html", {"obj": message})
