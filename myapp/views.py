@@ -8,6 +8,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .models import Room, Topic, Message
 from .forms import RoomForm
+from datetime import datetime, timedelta
 
 rooms = [
     # {'id':1,'name':'Python'},
@@ -82,7 +83,21 @@ def home(request):
     room_count = rooms.count()
     topics = Topic.objects.all()
 
-    context = {"rooms": rooms, "topics": topics, "room_count": room_count}
+    
+    current_time = datetime.now()
+    cutoff_time = current_time - timedelta(days=2)
+    room_messages = Message.objects.filter(
+        created__gt=cutoff_time,
+        created__lte=cutoff_time + timedelta(days=1), # Filters messages posted exactly 2 days ago
+        room__topic__name__startswith=q, # Filters messages according to topic
+    )
+
+    context = {
+        "rooms": rooms,
+        "topics": topics,
+        "room_count": room_count,
+        "room_messages": room_messages,
+    }
     return render(request, "myapp/home.html", context)
 
 

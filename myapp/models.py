@@ -41,5 +41,9 @@ class Message(models.Model):
         auto_now_add=True
     )  # initial timestamp doesn't change
 
+    class Meta:
+        # displaying recently created room at the top
+        ordering = ["-updated", "-created"]
+
     def __str__(self):
         return self.body[0:50]  # display first 50 character
