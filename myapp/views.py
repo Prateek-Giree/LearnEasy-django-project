@@ -83,13 +83,13 @@ def home(request):
     room_count = rooms.count()
     topics = Topic.objects.all()
 
-    
     current_time = datetime.now()
     cutoff_time = current_time - timedelta(days=2)
     room_messages = Message.objects.filter(
         created__gt=cutoff_time,
-        created__lte=cutoff_time + timedelta(days=1), # Filters messages posted exactly 2 days ago
-        room__topic__name__startswith=q, # Filters messages according to topic
+        created__lte=cutoff_time
+        + timedelta(days=1),  # Filters messages posted exactly 2 days ago
+        room__topic__name__startswith=q,  # Filters messages according to topic
     )
 
     context = {
@@ -173,17 +173,6 @@ def deleteRoom(request, pk):
     return render(request, "myapp/delete.html", {"obj": room})
 
 
-# def deleteMessage(request, pk):
-#     message = Message.objects.get(id=pk)
-
-#     if request.method == "POST":
-#         message.delete()
-#         return redirect("home")
-
-
-#     return render(request, "myapp/delete.html", {"obj": message})
-
-
 @login_required(login_url="login")
 def deleteMessage(request, room_id, pk):
     message = Message.objects.get(id=pk)
@@ -193,3 +182,20 @@ def deleteMessage(request, room_id, pk):
         return redirect("room", pk=room_id)  # pk is parameter in room url
 
     return render(request, "myapp/delete.html", {"obj": message})
+
+
+def userProfile(request, pk):
+    user = User.objects.get(id=pk)
+    # fetches all the rooms associated with a particular user
+    rooms = user.room_set.all()
+    # fetches all the messages associated with a particular user
+    room_messages = user.message_set.all()
+    # fetch all the topics
+    topics = Topic.objects.all()
+    context = {
+        "user": user,
+        "rooms": rooms,
+        "room_messages": room_messages,
+        "topics": topics,
+    }
+    return render(request, "myapp/profile.html", context)
