@@ -9,6 +9,7 @@ from django.contrib import messages
 from .models import Room, Topic, Message
 from .forms import RoomForm
 from datetime import datetime, timedelta
+from django.utils import timezone
 
 rooms = [
     # {'id':1,'name':'Python'},
@@ -80,17 +81,19 @@ def home(request):
         | Q(name__startswith=q)
         | Q(description__startswith=q)
     )
+
     room_count = rooms.count()
     topics = Topic.objects.all()
 
-    current_time = datetime.now()
-    cutoff_time = current_time - timedelta(days=2)
-    room_messages = Message.objects.filter(
-        created__gt=cutoff_time,
-        created__lte=cutoff_time
-        + timedelta(days=1),  # Filters messages posted exactly 2 days ago
-        room__topic__name__startswith=q,  # Filters messages according to topic
-    )
+    # current_time = datetime.now()
+    # cutoff_time = current_time - timedelta(days=2)
+    # room_messages = Message.objects.filter(
+    #     created__gt=cutoff_time,
+    #     created__lte=cutoff_time
+    #     + timedelta(days=1),  # Filters messages posted exactly 2 days ago
+    #     room__topic__name__startswith=q,  # Filters messages according to topic
+    # )
+    room_messages = Message.objects.filter(room__topic__name__startswith=q)
 
     context = {
         "rooms": rooms,
@@ -183,6 +186,15 @@ def deleteMessage(request, room_id, pk):
         message.delete()
         return redirect("room", pk=room_id)  # pk is parameter in room url
 
+    return render(request, "myapp/delete.html", {"obj": message})
+
+
+def deleteActivityMessage(request, pk):
+    message = Message.objects.get(id=pk)
+
+    if request.method == "POST":
+        message.delete()
+        return redirect("home")  # pk is parameter in room url
     return render(request, "myapp/delete.html", {"obj": message})
 
 
