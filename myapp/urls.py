@@ -22,4 +22,5 @@ urlpatterns = [
         views.deleteActivityMessage,
         name="delete-activity-message",
     ),
+    path("update-user/", views.updateUser, name="update-user"),
 ]

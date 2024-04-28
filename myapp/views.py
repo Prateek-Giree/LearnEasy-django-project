@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from .models import Room, Topic, Message
-from .forms import RoomForm
+from .forms import RoomForm, UserForm
 from datetime import datetime, timedelta
 from django.utils import timezone
 
@@ -199,6 +199,7 @@ def deleteMessage(request, room_id, pk):
     return render(request, "myapp/delete.html", {"obj": message})
 
 
+@login_required(login_url="login")
 def deleteActivityMessage(request, pk):
     message = Message.objects.get(id=pk)
 
@@ -208,6 +209,7 @@ def deleteActivityMessage(request, pk):
     return render(request, "myapp/delete.html", {"obj": message})
 
 
+@login_required(login_url="login")
 def userProfile(request, pk):
     user = User.objects.get(id=pk)
     # fetches all the rooms associated with a particular user
@@ -223,3 +225,16 @@ def userProfile(request, pk):
         "topics": topics,
     }
     return render(request, "myapp/profile.html", context)
+
+
+@login_required(login_url="login")
+def updateUser(request):
+    user = request.user
+    form = UserForm(instance=user)
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect("user-profile", pk=user.id)
+    return render(request, "myapp/update_user.html", {"form": form})
