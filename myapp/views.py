@@ -83,7 +83,7 @@ def home(request):
     )
 
     room_count = rooms.count()
-    topics = Topic.objects.all()
+    topics = Topic.objects.all()[0:4]
 
     # current_time = datetime.now()
     # cutoff_time = current_time - timedelta(days=2)
@@ -93,7 +93,9 @@ def home(request):
     #     + timedelta(days=1),  # Filters messages posted exactly 2 days ago
     #     room__topic__name__startswith=q,  # Filters messages according to topic
     # )
-    room_messages = Message.objects.filter(room__topic__name__startswith=q)
+    room_messages = Message.objects.filter(room__topic__name__startswith=q).order_by(
+        "-created"
+    )[:10]
 
     context = {
         "rooms": rooms,
@@ -232,9 +234,27 @@ def updateUser(request):
     user = request.user
     form = UserForm(instance=user)
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = UserForm(request.POST, instance=user)
         if form.is_valid():
             form.save()
             return redirect("user-profile", pk=user.id)
     return render(request, "myapp/update_user.html", {"form": form})
+
+
+@login_required(login_url="login")
+def topicPage(request):
+    rooms = Room.objects.all()
+    room_count = rooms.count()
+
+    q = request.GET.get("q") if request.GET.get("q") != None else ""
+    topics = Topic.objects.filter(name__icontains=q)
+    return render(
+        request, "myapp/topics.html", {"topics": topics, "room_count": room_count}
+    )
+
+
+@login_required(login_url="login")
+def activityPage(request):
+    room_messages = Message.objects.order_by("-created")[:10]
+    return render(request, "myapp/activity.html", {"room_messages": room_messages})

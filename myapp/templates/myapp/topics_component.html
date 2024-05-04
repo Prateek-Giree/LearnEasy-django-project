@@ -4,7 +4,9 @@
   </div>
   <ul class="topics__list">
     <li>
-      <a href="{% url 'home' %}" class="active">All <span>{{topics.count}}</span></a>
+      <a href="{% url 'home' %}" class="active"
+        >All <span>{{room_count}}</span></a
+      >
     </li>
     {% for topic in topics %}
     <li>
@@ -14,7 +16,7 @@
     </li>
     {% endfor %}
   </ul>
-  <a class="btn btn--link" href="topics.html">
+  <a class="btn btn--link" href="{% url 'topics' %}">
     More
     <svg
       version="1.1"

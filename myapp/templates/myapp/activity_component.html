@@ -1,16 +1,3 @@
-{% comment %}
-<h3>Recent activity</h3>
-<hr />
-{% for message in room_messages %}
-<div>
-  <small>
-    <a href="{% url 'user-profile' message.user.id %}"> @{{message.user}}</a>
-    {{message.created|timesince}} ago</small
-  >
-  <small>replied to "{{message.room}}"</small>
-  <p>-{{message}}</p>
-</div>
-{% endfor %} {% endcomment %}
 <!-- Activities Start -->
 <div class="activities">
   <div class="activities__header">
