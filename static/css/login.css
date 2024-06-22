@@ -4,10 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-body {
-  font-family: "Rajdhani", sans-serif;
-  background-color: #013c4d;
+font-family: "Rajdhani", sans-serif;
 }
 .hero {
   height: 100vh;
@@ -90,6 +87,7 @@ body {
 
 .reg a {
   text-decoration: none;
+  color: #470899;
 }
 .reg a:hover {
   text-decoration: dotted underline;

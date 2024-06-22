@@ -5,45 +5,46 @@ Profile | {{user.username}}
 
 
 {% block body %}
-  <main class="profile-page layout layout--3">
-    <div class="container">
-  {% include "myapp/topics_component.html" %}
+<main class="profile-page layout layout--3">
+  <div class="container">
+    {% include "myapp/topics_component.html" %}
 
-      <!-- Room List Start -->
-      <div class="roomList">
-        <div class="profile">
-          <div class="profile__avatar">
-            <div class="avatar avatar--large active">
-              <img src="https://randomuser.me/api/portraits/men/11.jpg" />
-            </div>
+    <!-- Room List Start -->
+    <div class="roomList">
+      <div class="profile">
+        <div class="profile__avatar">
+          <div class="avatar avatar--large active">
+            <img src=" {{user.avatar.url}} " />
           </div>
-          <div class="profile__info">
-            <h3>{{user.username}}</h3>
-            <p>@{{user.username}}</p>
-            {% if request.user == user %}
-            <a href="{% url 'update-user' %}" class="btn btn--main btn--pill">Edit Profile</a>
+        </div>
+        <div class="profile__info">
+          <h3>{{user.name}}</h3>
+          <p>@{{user.username}}</p>
+          {% if request.user == user %}
+          <a href="{% url 'update-user' %}" class="btn btn--main btn--pill">Edit Profile</a>
+          {% endif %}
+        </div>
+        <div class="profile__about">
+          <h3>About</h3>
+          <p> {% if user.bio == '' %}
+            No bio.....
+            {% else %}
+            {{user.bio}}
             {% endif %}
-          </div>
-          <div class="profile__about">
-            <h3>About</h3>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur illo tenetur
-              facilis sunt nemo debitis quisquam hic atque aut? Ducimus alias placeat optio
-              accusamus repudiandae quis ab ex exercitationem rem?
-            </p>
-          </div>
+          </p>
         </div>
-
-        <div class="roomList__header">
-          <div>
-            <h2>Study Rooms Hosted by </a>
-            </h2>
-          </div>
-        </div>
-        {% include "myapp/feed_component.html" %}
       </div>
-      {% include "myapp/activity_component.html" %}
+
+      <div class="roomList__header">
+        <div>
+          <h2>Study Rooms Hosted by </a>
+          </h2>
+        </div>
+      </div>
+      {% include "myapp/feed_component.html" %}
     </div>
-  </main>
+    {% include "myapp/activity_component.html" %}
+  </div>
+</main>
 
 {% endblock body %}
