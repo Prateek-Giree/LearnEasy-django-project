@@ -67,7 +67,9 @@ def registerPage(request):
             login(request, user)
             return redirect("home")
         else:
-            messages.error(request, "An error occured during registration")
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
 
     return render(request, "myapp/login_register.html", {"form": form})
 
