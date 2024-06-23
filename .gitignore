@@ -2,3 +2,4 @@ myenv/
 .vscode/
 __pycache__/
 db.sqlite3
+images/
